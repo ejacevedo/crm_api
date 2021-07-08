@@ -11,11 +11,9 @@ class UsersMiddleware {
        next: express.NextFunction
     ) {
         if(req.body && req.body.email && req.body.password) {
-            debug('check body');
             next();
         } else {
-            debug('reposne');
-            res.status(3400).send({
+            res.status(400).send({
                 error: `Missing required fields email and password`
             });
         }
@@ -40,7 +38,7 @@ class UsersMiddleware {
         next: express.NextFunction
     ) {
         const user = await userService.getUserByEmail(req.body.email);
-        if(user && user.id == req.params.userId) {
+        if(user && user._id == req.params.userId) {
             next();
         } else {
             res.status(400).send({ errr: `Invalid email` });
