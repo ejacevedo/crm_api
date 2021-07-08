@@ -10,7 +10,6 @@ class UsersMiddleware {
        res: express.Response,
        next: express.NextFunction
     ) {
-        debug('Vamos aca ...');
         if(req.body && req.body.email && req.body.password) {
             debug('check body');
             next();
@@ -40,7 +39,6 @@ class UsersMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        log('call validateSameEmailBelongToSameUser ');
         const user = await usersService.getUserByEmail(req.body.email);
         if(user && user.id == req.params.userId) {
             next();
