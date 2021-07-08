@@ -1,5 +1,5 @@
 import express from 'express';
-import usersService from '../services/users.service';
+import userService from '../services/users.service';
 import debug from 'debug';
 
 const log:debug.IDebugger = debug('app:users-controller');
@@ -26,7 +26,7 @@ class UsersMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        const user = await usersService.getUserByEmail(req.body.email);
+        const user = await userService.getUserByEmail(req.body.email);
         if(user) {
             res.status(400).send({ error: `User email already exists` });
         } else {
@@ -39,7 +39,7 @@ class UsersMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        const user = await usersService.getUserByEmail(req.body.email);
+        const user = await userService.getUserByEmail(req.body.email);
         if(user && user.id == req.params.userId) {
             next();
         } else {
@@ -65,7 +65,7 @@ class UsersMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        const user = await usersService.readById(req.params.userId);
+        const user = await userService.readById(req.params.userId);
         if(user) {
             next();
         } else {
