@@ -1,7 +1,7 @@
 
-import { CreateUserDto } from "../dto/create.user.dto";
-import { PutUserDto } from "../dto/put.user.dto";
-import { PatchUserDto } from "../dto/patch.user.dto";
+import { CreateUserDto } from "../dto/user/create.user.dto";
+import { PutUserDto } from "../dto/user/put.user.dto";
+import { PatchUserDto } from "../dto/user/patch.user.dto";
 import mongooseService from "../../common/services/mongoose.service";
 import shortid from "shortid";
 import debug from "debug";
@@ -9,7 +9,6 @@ import debug from "debug";
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
 class UsersDao {
-    users: Array<CreateUserDto> = [];
     Schema = mongooseService.getMongoose().Schema;
 
     userSchema = new this.Schema({
@@ -19,7 +18,7 @@ class UsersDao {
         firstName: String,
         lastName: String,
         permissionFlags: Number,
-    }, { id: false });
+    }, { timestamps: true, id: false });
 
     User = mongooseService.getMongoose().model('Users', this.userSchema);
 

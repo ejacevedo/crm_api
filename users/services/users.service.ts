@@ -1,8 +1,8 @@
 import UsersDao from "../daos/users.dao";
 import { CRUD } from "../../common/crud.interface";
-import { CreateUserDto } from "../dto/create.user.dto";
-import { PutUserDto } from "../dto/put.user.dto";
-import { PatchUserDto } from "../dto/patch.user.dto";
+import { CreateUserDto } from "../dto/user/create.user.dto";
+import { PutUserDto } from "../dto/user/put.user.dto";
+import { PatchUserDto } from "../dto/user/patch.user.dto";
 import usersDao from "../daos/users.dao";
 
 class UsersService implements CRUD {

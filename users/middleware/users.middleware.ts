@@ -1,22 +1,17 @@
 import express from 'express';
 import userService from '../services/users.service';
+import { body } from 'express-validator';
 import debug from 'debug';
+
 
 const log:debug.IDebugger = debug('app:users-controller');
 class UsersMiddleware {
 
-    async validateRequiredUserBodyFields(
-       req: express.Request,
-       res: express.Response,
-       next: express.NextFunction
-    ) {
-        if(req.body && req.body.email && req.body.password) {
-            next();
-        } else {
-            res.status(400).send({
-                error: `Missing required fields email and password`
-            });
-        }
+    validateRequiredUserBodyFields() {
+        return [
+            body('email').isEmail(),
+            body('password').isLength({ min: 5 }).withMessage('ok ok Must include password (5+ characters)')
+        ]
     }
 
     async validateSameEmailDoesntExist(
