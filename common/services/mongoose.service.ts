@@ -6,11 +6,18 @@ const log: debug.IDebugger = debug('app:mongoose:services');
 class MongooseService {
     private count = 0;
     private mongooseOptions = {
-        useNewUrlParse: true,
-        useUnifiedTopoly: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
         serverSelectionTimeoutMS: 5000,
-        userFindAnyModify: false
+        useFindAndModify: false,
+        retryWrites: true,
+        w: "majority",
     }
+    
+    private DB_HOST = process.env.DB_HOST;
+    private DB_NAME = process.env.DB_NAME;
+    private DB_USER = process.env.DB_USER;
+    private DB_PASSWORD = process.env.DB_PASSWORD;
 
     constructor(){
         this.connectWithRetry();
@@ -22,7 +29,8 @@ class MongooseService {
 
     connectWithRetry(){
         log('Attempting MongoDB connection (will retry if needed)');
-        mongoose.connect('mongodb+srv://root:yc2seYhU8T4gfgS@cluster0.npbmr.mongodb.net/test?authSource=admin&replicaSet=atlas-wjf8a9-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true')
+        const MONGO_URI = `mongodb+srv://${this.DB_USER}:${this.DB_PASSWORD}@${this.DB_HOST}/${this.DB_NAME}`;
+        mongoose.connect(MONGO_URI, this.mongooseOptions)
         .then(() => {
            log('MongoDB is conected');
         })

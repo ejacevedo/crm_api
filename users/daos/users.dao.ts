@@ -46,7 +46,7 @@ class UsersDao {
     }
     
     async getUserById(userId: string){
-        return this.User.findById({ _id: userId}).populate('User').exec();
+        return this.User.findOne({ _id: userId }).populate('User').exec();
     }
 
 
@@ -55,7 +55,7 @@ class UsersDao {
         userFields: PatchUserDto | PutUserDto
     ){
         const existingUser = await this.User.findOneAndUpdate(
-            { id: userId },
+            { _id: userId },
             { $set: userFields },
             { new: true }
         );
