@@ -11,7 +11,10 @@ import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors'
 import {CommonRoutesConfig} from './common/common.routes.config';
-import {UsersRoutes} from './users/users.routes.config';
+import {UsersRoutes} from './users/routes/users.routes.config';
+import {OrganizationsRoutes} from './users/routes/organizations.routes.config'; 
+import { PlansRoutes } from './users/routes/plans.routes.config';
+import { RegionsRoutes } from './users/routes/regions.config'
 import debug from 'debug';
 
 const app: express.Application = express();
@@ -38,7 +41,10 @@ if (!process.env.DEBUG) {
 
 app.use(expressWinston.logger(loggerOptions));
 
+routes.push(new OrganizationsRoutes(app));
 routes.push(new UsersRoutes(app));
+routes.push(new PlansRoutes(app));
+routes.push(new RegionsRoutes(app));
 
 const runningMessage = `Server running at http://localhost:${port}`;
 app.get('/', (req: express.Request, res: express.Response) => {

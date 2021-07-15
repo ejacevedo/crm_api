@@ -1,7 +1,7 @@
-import { CommonRoutesConfig } from '../common/common.routes.config';
-import UsersController from './controllers/users.controller';
-import UsersMiddleware from './middleware/users.middleware';
-import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
+import { CommonRoutesConfig } from '../../common/common.routes.config';
+import UsersController from '../controllers/users.controller';
+import UsersMiddleware from '../middleware/users.middleware';
+import BodyValidationMiddleware from '../../common/middleware/body.validation.middleware';
 import { body, check } from 'express-validator';
 import express from 'express';
 

@@ -10,6 +10,7 @@ class UsersMiddleware {
     validateRequiredUserBodyFields() {
         return [
             body('email').isEmail(),
+            body('organizations').isArray(),
             body('password').isLength({ min: 5 }).withMessage('ok ok Must include password (5+ characters)')
         ]
     }

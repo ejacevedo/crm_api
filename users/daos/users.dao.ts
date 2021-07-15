@@ -18,8 +18,28 @@ class UsersDao {
         firstName: String,
         lastName: String,
         permissionFlags: Number,
+        organizations:[
+            {
+                organization: { type: this.Schema.Types.ObjectId,ref: "Organizations" },
+                status: String
+            }
+        ],
+        channels: [
+            {
+                channel: { type: this.Schema.Types.ObjectId, ref: 'Channels' },
+                name: String
+            }
+        ],
+        rules: [
+            {
+                channel: { type: this.Schema.Types.ObjectId,ref: "Channels" },
+                maxQueues: Number,
+                maxTickets: Number
+            }
+        ],
+        region: { type: this.Schema.Types.ObjectId, ref: 'Regions' }
     }, { timestamps: true, id: false });
-
+    
     User = mongooseService.getMongoose().model('Users', this.userSchema);
 
     constructor() {
@@ -39,13 +59,14 @@ class UsersDao {
 
     async getUsers(limit = 25, page = 0){
         return this.User.find()
+            .populate('organization', 'name -_id')
             .limit(limit)
             .skip(limit * page)
             .exec();
     }
     
     async getUserById(userId: string){
-        return this.User.findOne({ _id: userId }).populate('User').exec();
+        return this.User.findOne({ _id: userId }).populate('organization').exec();
     }
 
 
