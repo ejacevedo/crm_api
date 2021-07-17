@@ -5,7 +5,7 @@ import mongooseService from "../../common/services/mongoose.service";
 import shortid from "shortid";
 import debug from "debug"
 
-const log: debug.IDebugger = debug('app:in-memory-dao');
+const log: debug.IDebugger = debug('app:organization-dao');
 
 class OrganizationsDao {
 

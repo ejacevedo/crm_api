@@ -6,7 +6,7 @@ import mongooseService from "../../common/services/mongoose.service";
 import shortid from "shortid";
 import debug from "debug";
 
-const log: debug.IDebugger = debug('app:in-memory-dao');
+const log: debug.IDebugger = debug('app:users-dao');
 
 class UsersDao {
     Schema = mongooseService.getMongoose().Schema;
@@ -66,9 +66,11 @@ class UsersDao {
     }
     
     async getUserById(userId: string){
-        return this.User.findOne({ _id: userId }).populate('organization').exec();
+        log('userId:', userId);
+        const user = await this.User.findOne({ _id: userId }).populate('organization').exec();
+        console.log('user',user);
+        return user;
     }
-
 
     async updateUserById(
         userId: string,

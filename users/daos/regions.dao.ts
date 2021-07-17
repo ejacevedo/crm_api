@@ -4,7 +4,7 @@ import { PatchRegionDto } from '../dto/region/patch.region.dto';
 import mongooseService from '../../common/services/mongoose.service';
 import debug from 'debug';
 
-const log: debug.IDebugger = debug('app:regios-dao');
+const log: debug.IDebugger = debug('app:regions-dao');
 
 class RegionsDao {
     Schema = mongooseService.getMongoose().Schema;

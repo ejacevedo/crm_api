@@ -38,6 +38,7 @@ class PlansDao {
     }
 
     async getPlanById(planId: string) {
+        log('planId:', planId);
         return this.Plan.findOne({ id: planId });
     }
 
